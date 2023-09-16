@@ -1,12 +1,15 @@
 <html>
     <head>
         <link rel="stylesheet" href="index.css">
+        <script defer src="index.js"></script>
     </head>
     <body>
-        <h1>Hello, {user}!</h1>
+        <h1 id="greetingMessage"></h1>
         <h2 id="date"></h2>
+        <h3 id="currentTime"></h3>
         <p id="message"></p>
         <button id="new-messageBtn">Read New Message</button>
+        <p id="break-message"></p>
         <div class="reminder-container">
             <h3>Reminders</h3>
             <ul id="reminder-list">
@@ -23,6 +26,5 @@
             <input type="text" placeholder="Send message here..."></input>
             <button id="submit-btn">Submit!</button>
         </div>
-        <script src="index.js"></script>
     </body>
 </html>
