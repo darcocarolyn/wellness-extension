@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <h1>Hello, {user}!</h1>
+        <h2 id="date"></h2>
+        <p id="message"></p>
+        <button id="new-messageBtn">Read New Message</button>
+        <div class="reminder-container">
+            <h3>Reminders</h3>
+            <ul id="reminder-list">
+            </ul>
+            <input 
+            id="reminder-input" 
+            type="text" 
+            placeholder="Add reminder here..."
+            value=""></input>
+            <button id="reminder-btn">Add Reminder</button>
+        </div>
+        <div id="message-input">
+            <h3>Send a message to a fellow user!</h3>
+            <input type="text" placeholder="Send message here..."></input>
+            <button id="submit-btn">Submit!</button>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
