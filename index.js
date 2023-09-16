@@ -4,6 +4,7 @@ const listElement = document.getElementById("reminder-list")
 const reminderInput = document.getElementById("reminder-input")
 const reminderBtn = document.getElementById("reminder-btn")
 const newMessageBtn = document.getElementById("new-messageBtn")
+let myReminders = [];
 
 const current = new Date();
   const month = [
@@ -40,7 +41,11 @@ const current = new Date();
   
   messageElement.innerHTML = generateRandomMessage();
        
-    
+  const leadsFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'));
+if (leadsFromLocalStorage) {
+  myReminders = leadsFromLocalStorage;
+  render(myReminders);
+}
     const data = [
         {
           key: '1',
@@ -101,6 +106,10 @@ function addReminder() {
   clearInput();
 
   data.push(newReminder);
+  //Grabs current data from local storage
+  localStorage.setItem('myLeads', JSON.stringify(data));
+
+  clearInput();
 
   console.log("New Reminder added:", newReminder);
 }
