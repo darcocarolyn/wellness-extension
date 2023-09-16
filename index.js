@@ -104,6 +104,7 @@ function addReminder() {
 
   console.log("New Reminder added:", newReminder);
 }
+
 newMessageBtn.addEventListener("click", function(){
   messageElement.innerHTML = generateRandomMessage();
 })
