@@ -7,6 +7,9 @@ const newMessageBtn = document.getElementById("new-messageBtn");
 const timeElement = document.getElementById("currentTime")
 const breakElement = document.getElementById("break-message")
 
+const addMessageBtn = document.getElementById("submit-btn");
+const messageInput = document.getElementById("message-input");
+
 let myReminders = []
 
 const currentHour = new Date().getHours();
@@ -167,10 +170,32 @@ function addReminder() {
   console.log("New Reminder added:", newReminder);
 }
 
+
+
+
 newMessageBtn.addEventListener("click", function () {
   messageElement.innerHTML = generateRandomMessage();
 });
 
+
+addMessageBtn.addEventListener("click", function() {
+  addMessage();
+});
+
+function addMessage() {
+  const newMessage = messageInput.value;
+
+
+
+  Messages.push(newMessage);
+
+  // Save updated myReminders to local storage
+  localStorage.setItem('myMessages', JSON.stringify(Messages));
+
+  clearInput();
+
+  console.log("New Message added:", newMessage);
+}
 function clearInput() {
   reminderInput.value = "";
 }
