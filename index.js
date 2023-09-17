@@ -85,7 +85,7 @@ const Messages = [
   "Good morning, sunshine! Wishing you a day filled with laughter, love, and unexpected blessings. Make today extraordinary!",
 
   "Sending you a burst of morning cheer! May your day be as bright and beautiful as a field of sunflowers. Enjoy every moment",
-  
+
   "Hello, world-changer! May your day be productive and fulfilling, paving the way for success and happiness. Have a wonderful day!"
 ];
 
@@ -108,7 +108,7 @@ if (remindersFromLocalStorage && Array.isArray(remindersFromLocalStorage)) {
 // Congrats message updates whenever a user adds or removes a reminder
 function updateCongratsMessage() {
   if (myReminders.length === 0) {
-    congratsMessage.innerText = 'Congratulations, enjoy the rest of your day!';
+    congratsMessage.innerText = 'Congratulations, you have no more reminders! Enjoy the rest of your day!';
   } else {
     congratsMessage.innerText = '';
   }
