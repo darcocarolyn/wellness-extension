@@ -1,3 +1,4 @@
+//Grabs html elements
 const dateElement = document.getElementById("date");
 const messageElement = document.getElementById("message");
 const listElement = document.getElementById("reminder-list");
@@ -9,23 +10,28 @@ const breakElement = document.getElementById("break-message")
 
 const addMessageBtn = document.getElementById("submit-btn");
 const messageInput = document.getElementById("message-input");
+const congratsMessage = document.getElementById("congrats-message");
+const deleteImg= document.getElementById("deleteImg-btn")
+const messageField= document.getElementById("message-field")
+
+
 
 let myReminders = []
 
+
+// Greeting Message
 const currentHour = new Date().getHours();
 
-    // Select the greeting based on the current hour
     let greetingMessage;
 
     if (currentHour < 13) {
-      greetingMessage = 'Good morning!';
+      greetingMessage = 'Good Morning!';
     } else if (currentHour < 17) {
-      greetingMessage = 'Good afternoon!';
+      greetingMessage = 'Good Afternoon!';
     } else {
-      greetingMessage = 'Good evening!';
+      greetingMessage = 'Good Evening!';
     }
 
-    // Display the greeting message
     const greetingElement = document.getElementById('greetingMessage');
     greetingElement.textContent = greetingMessage;
 
@@ -45,13 +51,13 @@ let hours = currentTime.getHours();
 const minutes = currentTime.getMinutes().toString().padStart(2, '0');
 const meridiem = hours >= 12 ? 'PM' : 'AM';
 
-// Convert to 12-hour format
 hours = hours % 12 || 12;
 
 const formattedTime = `${hours}:${minutes} ${meridiem}`;
 
 timeElement.innerHTML=formattedTime
 
+//Break Reminder
 function createBreakReminder() {
   const breakReminder = document.createElement('p');
   breakReminder.innerText = 'It\'s time to take a break! Stretch and relax for a while.';
@@ -63,23 +69,26 @@ function createBreakReminder() {
 
     buttonEl.addEventListener("click", function(){
       breakElement.innerHTML=""
+      setInterval(createBreakReminder, intervalInMilliseconds);
     })
 
 }
 
-const intervalInMilliseconds = 30 * 60 * 1000; // 30 minutes * 60 seconds * 1000 milliseconds
+const intervalInMilliseconds = 30 * 60 * 1000; 
 
-// Set an initial timer
 setInterval(createBreakReminder, intervalInMilliseconds);
 
+//Generates random message
 const Messages = [
   "Rise and shine, dear friend! May today greet you with endless possibilities and joy. Have an amazing day!",
+
   "Good morning, sunshine! Wishing you a day filled with laughter, love, and unexpected blessings. Make today extraordinary!",
+
   "Sending you a burst of morning cheer! May your day be as bright and beautiful as a field of sunflowers. Enjoy every moment",
+  
   "Hello, world-changer! May your day be productive and fulfilling, paving the way for success and happiness. Have a wonderful day!"
 ];
 
-//Generates random message
 const generateRandomMessage = () => {
   const randomIndex = Math.floor(Math.random() * Messages.length);
   return Messages[randomIndex];
@@ -92,12 +101,20 @@ const remindersFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'));
 if (remindersFromLocalStorage && Array.isArray(remindersFromLocalStorage)) {
   myReminders = remindersFromLocalStorage;
   render(myReminders);
-} else {
-  console.log('No reminders found in local storage or data is invalid.');
+  updateCongratsMessage()
 }
 
+
+// Congrats message updates whenever a user adds or removes a reminder
+function updateCongratsMessage() {
+  if (myReminders.length === 0) {
+    congratsMessage.innerText = 'Congratulations, enjoy the rest of your day!';
+  } else {
+    congratsMessage.innerText = '';
+  }
+}
 function render(reminders) {
-  listElement.innerHTML = ''; // Clear the existing list
+  listElement.innerHTML = '';
 
   //Lopps through each item and creates a li element with a button to remove it
   reminders.forEach(item => {
@@ -108,20 +125,23 @@ function render(reminders) {
 
     const buttonEl = document.createElement('button');
     const buttonText = document.createTextNode('Complete');
+    buttonEl.id = "completeBtn";
     buttonEl.appendChild(buttonText);
     reminderLi.appendChild(buttonEl);
 
     buttonEl.addEventListener("click", function () {
-      // Remove the reminder from the myReminders array
       myReminders = myReminders.filter(reminder => reminder.key !== item.key);
-      // Update local storage with the updated myReminders array
       localStorage.setItem('myLeads', JSON.stringify(myReminders));
-      // Render the updated reminders
       render(myReminders);
+      updateCongratsMessage();
+
     });
+
   });
+
 }
 
+//Adds reminder to array
 reminderBtn.addEventListener("click", function() {
   if (!reminderInput.value) {
     alert("Please enter a reminder before submitting.");
@@ -130,7 +150,6 @@ reminderBtn.addEventListener("click", function() {
   }
 });
 
-//Adds reminder to array
 function addReminder() {
   const reminderDescription = reminderInput.value;
 
@@ -146,56 +165,66 @@ function addReminder() {
   reminderLi.appendChild(textnode);
 
   const buttonEl = document.createElement('button');
+  buttonEl.id = "completeBtn";
   const buttonText = document.createTextNode('Complete');
   buttonEl.appendChild(buttonText);
   reminderLi.appendChild(buttonEl);
 
   buttonEl.addEventListener("click", function () {
-    // Remove the reminder from the myReminders array
     myReminders = myReminders.filter(reminder => reminder.key !== newReminder.key);
-    // Update local storage with the updated myReminders array
     localStorage.setItem('myLeads', JSON.stringify(myReminders));
-    // Render the updated reminders
     render(myReminders);
+    updateCongratsMessage()
   });
 
   listElement.appendChild(reminderLi);
   myReminders.push(newReminder);
+  updateCongratsMessage()
 
-  // Save updated myReminders to local storage
+
   localStorage.setItem('myLeads', JSON.stringify(myReminders));
-
-  clearInput();
+  clearReminderInput();
 
   console.log("New Reminder added:", newReminder);
 }
 
 
-
+//Message
 
 newMessageBtn.addEventListener("click", function () {
   messageElement.innerHTML = generateRandomMessage();
 });
 
 
-addMessageBtn.addEventListener("click", function() {
-  addMessage();
-});
+addMessageBtn.addEventListener("click", addMessage);
 
 function addMessage() {
-  const newMessage = messageInput.value;
+  const messageDescription = messageInput.value;
 
+  if (!messageDescription) {
+    alert("Please enter a message before submitting");
+    return;
+  }
 
+  Messages.push(messageDescription);
+  const sentMessage=document.createElement("p")
+  const textNode=document.createTextNode("Message Sent!")
+  sentMessage.appendChild(textNode);
+  messageField.appendChild(sentMessage)
 
-  Messages.push(newMessage);
-
-  // Save updated myReminders to local storage
   localStorage.setItem('myMessages', JSON.stringify(Messages));
 
-  clearInput();
-
-  console.log("New Message added:", newMessage);
+  clearMessageInput();
+  
+  console.log("New Message added:", messageDescription);
 }
-function clearInput() {
+
+
+function clearMessageInput() {
+  messageInput.value = "";
+}
+function clearReminderInput() {
   reminderInput.value = "";
 }
+
+console.log(document)

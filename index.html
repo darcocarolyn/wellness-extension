@@ -4,14 +4,17 @@
         <script defer src="index.js"></script>
     </head>
     <body>
+        <div class="headerInfo">
         <h1 id="greetingMessage"></h1>
+        <h2 id="currentTime"></h2>
         <h2 id="date"></h2>
-        <h3 id="currentTime"></h3>
         <p id="message"></p>
         <button id="new-messageBtn">Read New Message</button>
-        <p id="break-message"></p>
+        <div id="break-message"></div>
+    </div>
         <div class="reminder-container">
-            <h3>Reminders</h3>
+            <h2>Reminders:</h2>
+            <h3 id="congrats-message"></h3>
             <ul id="reminder-list">
             </ul>
             <input 
@@ -21,10 +24,13 @@
             value=""></input>
             <button id="reminder-btn">Add Reminder</button>
         </div>
-        <div id="message-input">
+        <div id="message-field">
             <h3>Send a message to a fellow user!</h3>
             <input id="message-input" value="" type="text" placeholder="Send message here..."></input>
             <button id="submit-btn">Submit!</button>
+        </div>
+        <div class="image-container">
+            <img id="image"src="Shell_Hack_Ad_Wellness_extension.gif"><img>
         </div>
     </body>
 </html>
