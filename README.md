@@ -1,5 +1,5 @@
 # Wellness Extension
-This was made at the ShellHacks 2023 event where a team consisiting of myself and 3 others who wanted to build something that can help uplift users' spirits. We decided to create a Google extension where users can have easy access to it.
+This was created during the ShellHacks 2023 event, where a team composed of myself and three others aimed to build something that could uplift users' spirits. We decided to develop a Google extension where users can have easy access to it.
 
 The overall purpose of this Google extension is to promote wellness and positivity through postive messages, a 30 minute timer urging users to take a break, and reminding them of any tasks that they need to complete.
 
